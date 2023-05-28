@@ -3,7 +3,6 @@ function convert() {
     const binaryInput = document.querySelector('[data-binary]')
     const btn = document.querySelector('[data-convert-btn]')
     const decimalInput = document.querySelector('[data-decimal]')
-    const error = document.querySelector('[data-error]')
 
     for(let i = 0; i < binaryInput.value.length; i++) {
 
@@ -11,7 +10,7 @@ function convert() {
             decimalInput.value = parseInt(binaryInput.value, 2)
         }
         else {
-            window.alert('There is an extra character inside the input, the input takes the values 1 or 0!')
+            btn.innerHTML = 'Error! Input accepts only 0 or 1'
             decimalInput.value = null;
             binaryInput.value = null;
             return
