@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Binary to decimal</title>
+</head>
+<body>
+    
+    <div class="container">
+        <p>Convert from:</p>
+        <select data-selector-from onchange="clear()">
+            <option value="Decimal">Decimal</option>
+            <option value="Binary"selected>Binary</option>
+            <option value="Octal">Octal</option>
+            <option value="Hexadecimal">Hexadecimal</option>
+            <option value="Roman">Roman Numeral</option>
+            <option value="Scientific">Scientific Notation</option>
+        </select>
+        <input type="text" onchange="clear()" name="" id="" data-input-from required>
+        <br>
+        <p>To:</p>
+        <select data-selector-to>
+            <option value="Decimal" selected>Decimal</option>
+            <option value="Binary">Binary</option>
+            <option value="Octal">Octal</option>
+            <option value="Hexadecimal">Hexadecimal</option>
+            <option value="Roman">Roman Numeral</option>
+            <option value="Scientific">Scientific Notation</option>
+        </select>
+        <input type="text" name="" id="" data-input-to disabled>
+        <br>
+        <button data-btn-convert>Convert</button> <br>
+        <p class="attention" data-attention>Scientific numerous example: 1e4 (sc) = 10000 (dc) </p>
+    </div>
+
+
+    <script type="text/javascript" src="number_converter.js"></script>
+	<script type="text/javascript">
+        (function() {
+            const selectorFrom = document.querySelector('[data-selector-from]')
+            const selectorTo = document.querySelectorAll('[data-selector-to]')
+            const btnConvert = document.querySelector('[data-btn-convert]')
+            const inputFrom = document.querySelector('[data-input-from]')
+            const inputTo = document.querySelector('[data-input-to]')
+            const attention = document.querySelector('[data-attention]')
+
+            btnConvert.addEventListener('click', convertWeb = () => {
+                const optionFrom = (selectorFrom.options[selectorFrom.options.selectedIndex].value).toUpperCase()
+                const optionTo = (selectorTo[0].options[selectorTo[0].options.selectedIndex].value).toUpperCase()
+
+                console.log(optionFrom)
+
+                switch(optionFrom) {
+                    case 'BINARY':
+                        try {
+                            for(let i = 0; i < inputFrom.value.length; i++){
+                                if (inputFrom.value[i] == 0 || inputFrom.value[i] == 1) {
+                                }
+                                else {
+                                    throw new Error('Input may contain only 0 or 1 numbers!')
+                                }
+                            }
+                        }
+                        catch (e) {
+                            window.alert(e)
+                            console.error(e)
+                            inputFrom.value = null;
+                            inputTo.value = null;
+                        }
+                    break;
+
+                    case 'OCTAL':
+                        try {
+                            for(let i = 0; i < inputFrom.value.length; i++){
+                                if (inputFrom.value[i] == 8 || inputFrom.value[i] == 9) {
+                                    throw new Error('Input may contain only 0 to 7 numbers!')
+                                }
+                                else {
+                                }
+                            }
+                        }
+                        catch (e) {
+                            window.alert(e)
+                            console.error(e)
+                            inputFrom.value = null;
+                            inputTo.value = null;
+                        }
+                    break;
+
+                    case 'ROMAN':
+                        try {
+                            const letters = /^[A-Za-z]+$/;
+                            if(inputFrom.value.match(letters)){
+                            }
+                            else {
+                                throw new Error('Input may contain only letters!')
+                            }
+                        }
+                        catch (e) {
+                            window.alert('Input may contain only letters!')
+                            inputFrom.value = null;
+                            inputTo.value = null;
+                        }
+                    break;
+
+                    default:
+                }
+
+                const NumberConverter = number_converter.NumberConverter;
+
+                NumberConverter.optionFrom = optionFrom
+                NumberConverter.optionTo = optionTo
+
+                let nc = new NumberConverter(NumberConverter.optionFrom, NumberConverter.optionTo);
+                inputTo.value = nc.convert(inputFrom.value)
+                })
+        }());
+	</script>
+</body>
+</html>
